@@ -25,76 +25,76 @@ export class SidePanelAPI {
   }
 
   private open = async (event: ExtensionEvent, options?: { tabId?: number; windowId?: number }) => {
-    return;
-    try {
-      const { extension } = event
-      const extensionId = extension.id
+    return true;
+    // try {
+    //   const { extension } = event
+    //   const extensionId = extension.id
 
-      d(`Opening sidePanel for extension ${extensionId}`)
+    //   d(`Opening sidePanel for extension ${extensionId}`)
 
-      // Close existing sidePanel window for this extension if it exists
-      const existingWindow = this.sidePanelWindows.get(extensionId)
-      if (existingWindow && !existingWindow.isDestroyed()) {
-        d(`Closing existing sidePanel window for ${extensionId}`)
-        existingWindow.close()
-        this.sidePanelWindows.delete(extensionId)
-      }
+    //   // Close existing sidePanel window for this extension if it exists
+    //   const existingWindow = this.sidePanelWindows.get(extensionId)
+    //   if (existingWindow && !existingWindow.isDestroyed()) {
+    //     d(`Closing existing sidePanel window for ${extensionId}`)
+    //     existingWindow.close()
+    //     this.sidePanelWindows.delete(extensionId)
+    //   }
 
-      // Get the popup URL from browser action
-      const popupUrl = this.getPopupUrl(extensionId)
-      if (!popupUrl) {
-        console.warn(`sidePanel.open: No popup URL found for extension ${extensionId}`)
-        return false
-      }
+    //   // Get the popup URL from browser action
+    //   const popupUrl = this.getPopupUrl(extensionId)
+    //   if (!popupUrl) {
+    //     console.warn(`sidePanel.open: No popup URL found for extension ${extensionId}`)
+    //     return false
+    //   }
 
-      d(`Creating standalone window for sidePanel with URL: ${popupUrl}`)
+    //   d(`Creating standalone window for sidePanel with URL: ${popupUrl}`)
 
-      // Create a standalone window for the sidePanel
-      const sidePanelWindow = new BrowserWindow({
-        width: 360,
-        height: 600,
-        resizable: true,
-        maximizable: false,
-        frame: true,
-        titleBarStyle: 'default',
-        title: `${extension.name} - Side Panel`,
-        webPreferences: {
-          sandbox: true,
-          nodeIntegration: false,
-          contextIsolation: true,
-          session: this.ctx.session,
-        },
-      })
+    //   // Create a standalone window for the sidePanel
+    //   const sidePanelWindow = new BrowserWindow({
+    //     width: 360,
+    //     height: 600,
+    //     resizable: true,
+    //     maximizable: false,
+    //     frame: true,
+    //     titleBarStyle: 'default',
+    //     title: `${extension.name} - Side Panel`,
+    //     webPreferences: {
+    //       sandbox: true,
+    //       nodeIntegration: false,
+    //       contextIsolation: true,
+    //       session: this.ctx.session,
+    //     },
+    //   })
 
-      // Store the window reference
-      this.sidePanelWindows.set(extensionId, sidePanelWindow)
+    //   // Store the window reference
+    //   this.sidePanelWindows.set(extensionId, sidePanelWindow)
 
-      // Add the window's webContents as a tab to the extensions system
-      this.ctx.store.addTab(sidePanelWindow.webContents, sidePanelWindow)
+    //   // Add the window's webContents as a tab to the extensions system
+    //   this.ctx.store.addTab(sidePanelWindow.webContents, sidePanelWindow)
 
-      // Load the extension URL
-      await sidePanelWindow.loadURL(popupUrl)
+    //   // Load the extension URL
+    //   await sidePanelWindow.loadURL(popupUrl)
 
-      // Remove window reference when closed
-      sidePanelWindow.on('closed', () => {
-        this.sidePanelWindows.delete(extensionId)
-        d(`SidePanel window closed for ${extensionId}`)
-      })
+    //   // Remove window reference when closed
+    //   sidePanelWindow.on('closed', () => {
+    //     this.sidePanelWindows.delete(extensionId)
+    //     d(`SidePanel window closed for ${extensionId}`)
+    //   })
 
-      // Disable menu for sidePanel window
-      sidePanelWindow.setMenu(null)
+    //   // Disable menu for sidePanel window
+    //   sidePanelWindow.setMenu(null)
 
-      // Optional: Open DevTools for debugging
-      if (process.env.SHELL_DEBUG) {
-        sidePanelWindow.webContents.openDevTools({ mode: 'detach' })
-      }
+    //   // Optional: Open DevTools for debugging
+    //   if (process.env.SHELL_DEBUG) {
+    //     sidePanelWindow.webContents.openDevTools({ mode: 'detach' })
+    //   }
 
-      d(`SidePanel window created successfully for ${extensionId}`)
-      return true
-    } catch (error) {
-      console.error('sidePanel.open error:', error)
-      return false
-    }
+    //   d(`SidePanel window created successfully for ${extensionId}`)
+    //   return true
+    // } catch (error) {
+    //   console.error('sidePanel.open error:', error)
+    //   return false
+    // }
   }
 
   private getPopupUrl(extensionId: string): string | null {
