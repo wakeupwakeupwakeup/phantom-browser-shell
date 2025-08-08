@@ -2,7 +2,7 @@ module.exports = {
   packagerConfig: {
     name: 'Shell',
     asar: true,
-    extraResource: ['browser/ui'],
+    extraResource: ['browser/ui', '../../extensions'],
   },
   rebuildConfig: {},
   makers: [
