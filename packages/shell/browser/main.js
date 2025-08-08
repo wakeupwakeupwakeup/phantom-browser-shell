@@ -18,6 +18,7 @@ const PATHS = {
   LOCAL_EXTENSIONS: app.isPackaged
     ? path.resolve(process.resourcesPath, 'extensions')
     : path.join(ROOT_DIR, 'extensions'),
+  ICON: path.join(SHELL_ROOT_DIR, 'assets', 'icon.png'),
 }
 
 let webuiExtensionId
@@ -185,6 +186,7 @@ class Browser {
             maximizable: false,
             titleBarStyle: 'default',
             title: 'Extension Window',
+            icon: PATHS.ICON, // Иконка для Linux
             webPreferences: {
               sandbox: true,
               nodeIntegration: false,
@@ -371,6 +373,7 @@ class Browser {
         height: 720,
         frame: false,
         titleBarStyle: 'hidden',
+        icon: PATHS.ICON, // Иконка для Linux
         titleBarOverlay: {
           height: 31,
           color: '#39375b',
@@ -421,6 +424,7 @@ class Browser {
       frame: true,
       titleBarStyle: 'default',
       title: 'Phantom Wallet',
+      icon: PATHS.ICON, // Иконка для Linux
       webPreferences: {
         sandbox: true,
         nodeIntegration: false,
