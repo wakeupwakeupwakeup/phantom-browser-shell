@@ -15,7 +15,9 @@ const PATHS = {
     ? path.resolve(process.resourcesPath, 'ui')
     : path.resolve(SHELL_ROOT_DIR, 'browser', 'ui'),
   PRELOAD: path.join(__dirname, '../renderer/browser/preload.js'),
-  LOCAL_EXTENSIONS: path.join(ROOT_DIR, 'extensions'),
+  LOCAL_EXTENSIONS: app.isPackaged
+    ? path.resolve(process.resourcesPath, 'extensions')
+    : path.join(ROOT_DIR, 'extensions'),
 }
 
 let webuiExtensionId
@@ -302,7 +304,15 @@ class Browser {
       },
     })
 
+    console.log('Loading extensions from:', PATHS.LOCAL_EXTENSIONS)
+    console.log('App is packaged:', app.isPackaged)
+    
     if (!app.isPackaged) {
+      await loadAllExtensions(this.session, PATHS.LOCAL_EXTENSIONS, {
+        allowUnpacked: true,
+      })
+    } else {
+      // For packaged app, load extensions from resources
       await loadAllExtensions(this.session, PATHS.LOCAL_EXTENSIONS, {
         allowUnpacked: true,
       })
@@ -390,12 +400,15 @@ class Browser {
 
   createPhantomWindow() {
     // Find Phantom extension
-    const phantomExtension = this.session.extensions
-      .getAllExtensions()
+    const allExtensions = this.session.extensions.getAllExtensions()
+    console.log('All loaded extensions:', allExtensions.map(ext => ({ name: ext.name, id: ext.id })))
+    
+    const phantomExtension = allExtensions
       .find((ext) => ext.name === 'Phantom')
 
     if (!phantomExtension) {
       console.log('Phantom extension not found')
+      console.log('Available extensions:', allExtensions.map(ext => ext.name))
       return
     }
 
