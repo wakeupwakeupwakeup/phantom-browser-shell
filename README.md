@@ -11,7 +11,7 @@
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/wakeupwakeupwakeup/phantom-browser-shell
 cd phantom-browser-shell
 ```
 
@@ -34,6 +34,7 @@ To update the Phantom extension in the application, follow these steps:
 ### 1. Find the installed Phantom extension
 
 The Phantom extension is usually located at:
+
 ```bash
 ~/.var/app/com.google.Chrome/config/google-chrome/Default/Extensions
 ```
@@ -41,6 +42,7 @@ The Phantom extension is usually located at:
 ### 2. Find the extension folder
 
 Navigate to the folder with the Phantom extension ID:
+
 ```bash
 cd ~/.var/app/com.google.Chrome/config/google-chrome/Default/Extensions/bfnaelmomeimhlpmgjnjophhpkkoljpa
 ```
