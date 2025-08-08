@@ -1,0 +1,8 @@
+import{d as k}from"./chunk-Q2CJBZ36.js";import{b as f}from"./chunk-IEC36PYL.js";import{j as x}from"./chunk-ZS5DCR5N.js";import{a as g}from"./chunk-YQDK2KIS.js";import"./chunk-CFJPS3RY.js";import"./chunk-6OURT4HP.js";import{d as s}from"./chunk-EW3NOMMT.js";import{m as d,pa as p}from"./chunk-AXFDOJRV.js";import"./chunk-DZSKJQUR.js";import{c as m}from"./chunk-IEY2ZFRQ.js";import"./chunk-BCKEKIIT.js";import"./chunk-GYYECUZK.js";import"./chunk-OGTXJ4NL.js";import"./chunk-MP5PPKB7.js";import"./chunk-LV3AOIIH.js";import{T as l}from"./chunk-LT72WXA6.js";import{Da as i,Q as c,c as u}from"./chunk-NRW4C74H.js";import"./chunk-2POO4JJE.js";import"./chunk-PQWATTJB.js";import"./chunk-OLIHMAK6.js";import{f as C,h as t,n as a}from"./chunk-YJSZZTEX.js";t();a();var n=C(u());var h=d.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`,L=n.default.memo(({url:r})=>{let{t:e}=c(),{hideExternalLinkWarningModal:o}=f(),y=(0,n.useCallback)(()=>{m.capture("collectibleExternalLinkOpened",{data:{url:r.toString()}}),o(),self.open(r.href,"_blank")},[o,r]);return n.default.createElement(h,null,n.default.createElement(x,null),n.default.createElement(k,{icon:n.default.createElement(g,{color:l(i.colors.legacy.accentWarning,.1),diameter:94},n.default.createElement(p,{width:54,height:54,circleFill:i.colors.legacy.accentWarning})),primaryText:e("externalLinkWarningTitle"),secondaryText:e("externalLinkWarningDescription",{url:r.host})}),n.default.createElement(s,{primaryText:e("commandCancel"),secondaryText:e("commandContinue"),onPrimaryClicked:o,onSecondaryClicked:y}))}),j=L;export{L as ExternalLinkWarning,j as default};
+//# sourceMappingURL=ExternalLinkWarning-OBCUBZO5.js.map
