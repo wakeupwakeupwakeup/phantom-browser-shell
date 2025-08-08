@@ -2,7 +2,7 @@ module.exports = {
   packagerConfig: {
     name: 'Phantom Wallet',
     asar: true,
-    extraResource: ['browser/ui', '../../extensions'],
+    extraResource: ['browser/ui', '../../extensions', 'assets'],
     icon: './assets/icon',
   },
   rebuildConfig: {},
