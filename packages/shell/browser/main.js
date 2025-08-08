@@ -18,7 +18,9 @@ const PATHS = {
   LOCAL_EXTENSIONS: app.isPackaged
     ? path.resolve(process.resourcesPath, 'extensions')
     : path.join(ROOT_DIR, 'extensions'),
-  ICON: path.join(SHELL_ROOT_DIR, 'assets', 'icon.png'),
+  ICON: app.isPackaged
+    ? path.resolve(process.resourcesPath, 'assets', 'icon.png')
+    : path.join(SHELL_ROOT_DIR, 'assets', 'icon.png'),
 }
 
 let webuiExtensionId
