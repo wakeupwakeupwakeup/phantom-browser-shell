@@ -25,6 +25,7 @@ export class SidePanelAPI {
   }
 
   private open = async (event: ExtensionEvent, options?: { tabId?: number; windowId?: number }) => {
+    return;
     try {
       const { extension } = event
       const extensionId = extension.id
