@@ -188,7 +188,7 @@ class Browser {
             maximizable: false,
             titleBarStyle: 'default',
             title: 'Extension Window',
-            icon: PATHS.ICON, // Иконка для Linux
+            icon: PATHS.ICON, // Icon for Linux
             webPreferences: {
               sandbox: true,
               nodeIntegration: false,
@@ -310,7 +310,7 @@ class Browser {
 
     console.log('Loading extensions from:', PATHS.LOCAL_EXTENSIONS)
     console.log('App is packaged:', app.isPackaged)
-    
+
     if (!app.isPackaged) {
       await loadAllExtensions(this.session, PATHS.LOCAL_EXTENSIONS, {
         allowUnpacked: true,
@@ -406,14 +406,19 @@ class Browser {
   createPhantomWindow() {
     // Find Phantom extension
     const allExtensions = this.session.extensions.getAllExtensions()
-    console.log('All loaded extensions:', allExtensions.map(ext => ({ name: ext.name, id: ext.id })))
-    
-    const phantomExtension = allExtensions
-      .find((ext) => ext.name === 'Phantom')
+    console.log(
+      'All loaded extensions:',
+      allExtensions.map((ext) => ({ name: ext.name, id: ext.id })),
+    )
+
+    const phantomExtension = allExtensions.find((ext) => ext.name === 'Phantom')
 
     if (!phantomExtension) {
       console.log('Phantom extension not found')
-      console.log('Available extensions:', allExtensions.map(ext => ext.name))
+      console.log(
+        'Available extensions:',
+        allExtensions.map((ext) => ext.name),
+      )
       return
     }
 

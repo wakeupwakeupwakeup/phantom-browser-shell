@@ -2,8 +2,24 @@ import { BrowserWindow, shell } from 'electron'
 import { ExtensionContext } from '../context'
 import { ExtensionEvent } from '../router'
 import debug from 'debug'
+import path from 'path'
+import { app } from 'electron'
 
 const d = debug('electron-chrome-extensions:identity')
+const SHELL_ROOT_DIR = path.join(__dirname, '../../')
+const ROOT_DIR = path.join(__dirname, '../../../../')
+const PATHS = {
+  WEBUI: app.isPackaged
+    ? path.resolve(process.resourcesPath, 'ui')
+    : path.resolve(SHELL_ROOT_DIR, 'browser', 'ui'),
+  PRELOAD: path.join(__dirname, '../renderer/browser/preload.js'),
+  LOCAL_EXTENSIONS: app.isPackaged
+    ? path.resolve(process.resourcesPath, 'extensions')
+    : path.join(ROOT_DIR, 'extensions'),
+  ICON: app.isPackaged
+    ? path.resolve(process.resourcesPath, 'assets', 'icon.png')
+    : path.join(SHELL_ROOT_DIR, 'assets', 'icon.png'),
+}
 
 /**
  * Basic implementation of the identity API.
@@ -48,9 +64,10 @@ export class IdentityAPI {
     // For interactive flows, open a popup window
     return new Promise((resolve, reject) => {
       const authWindow = new BrowserWindow({
-        width: 500,
-        height: 600,
+        width: 800,
+        height: 800,
         show: true,
+        icon: PATHS.ICON, // Icon for Linux
         modal: true,
         webPreferences: {
           nodeIntegration: false,

@@ -3,8 +3,24 @@ import { ExtensionEvent } from '../router'
 import { BrowserActionAPI } from './browser-action'
 import { BrowserWindow } from 'electron'
 import debug from 'debug'
+import path from 'path'
+import { app } from 'electron'
 
 const d = debug('electron-chrome-extensions:sidePanel')
+const SHELL_ROOT_DIR = path.join(__dirname, '../../')
+const ROOT_DIR = path.join(__dirname, '../../../../')
+const PATHS = {
+  WEBUI: app.isPackaged
+    ? path.resolve(process.resourcesPath, 'ui')
+    : path.resolve(SHELL_ROOT_DIR, 'browser', 'ui'),
+  PRELOAD: path.join(__dirname, '../renderer/browser/preload.js'),
+  LOCAL_EXTENSIONS: app.isPackaged
+    ? path.resolve(process.resourcesPath, 'extensions')
+    : path.join(ROOT_DIR, 'extensions'),
+  ICON: app.isPackaged
+    ? path.resolve(process.resourcesPath, 'assets', 'icon.png')
+    : path.join(SHELL_ROOT_DIR, 'assets', 'icon.png'),
+}
 
 /**
  * Implementation of the sidePanel API that creates standalone windows.
@@ -50,9 +66,10 @@ export class SidePanelAPI {
 
       // Create a standalone window for the sidePanel
       const sidePanelWindow = new BrowserWindow({
-        width: 360,
-        height: 600,
+        width: 800,
+        height: 800,
         resizable: true,
+        icon: PATHS.ICON, // Icon for Linux
         maximizable: false,
         frame: true,
         titleBarStyle: 'default',
